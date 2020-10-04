@@ -5,6 +5,7 @@ Assembler program (written for Linux 64 bit) does:
 1.  Fills an array from console input (amount of elements should be > 1 and < 100)
 2.  Generates new array
 3.  Copies all the elements except for the first positive number
+4.  Prints all elements from both arrays
 
 Let's see some of the tests:
 1.  Size of array is less than 1, so the program stops
