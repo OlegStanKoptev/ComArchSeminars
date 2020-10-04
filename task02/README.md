@@ -1,7 +1,7 @@
 # Computer Architecture Task 2
 ### Variant 11
 
-Assembler program does:
+Assembler program (written for Linus 64 bit) does:
 1.  Fills an array from console input (amount of elements should be > 1 and < 100)
 2.  Generates new array
 3.  Copies all the elements except for the first positive number
