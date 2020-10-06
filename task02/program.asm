@@ -35,7 +35,7 @@ VectorInput:
         add rsp, 16
 
         mov rax, [vec_size]
-        cmp rax, 1
+        cmp rax, 0
         jg  firstComparison
         
 fail:
@@ -72,7 +72,7 @@ getVecLoop:
 
         push rbp
         push rbp
-        lea rdi, [strScanLong]
+        lea rdi, [strScanInt]
         mov rsi, rbx
         xor rax, rax
         call scanf
@@ -106,12 +106,16 @@ translateVecLoop:
         jmp continueTranslate
 
 secondComparison:
-        mov rcx, [r12]
-        cmp rcx, 0
+        mov ecx, [r12]
+        cmp ecx, 0
         jns skipNumber
         jmp continueTranslate
 
 skipNumber:
+		mov rcx, [vec_size]
+		cmp rcx, 1
+		je endTranslateVector
+
         inc rbx
         add r12, 8
         inc [flag]
@@ -172,6 +176,10 @@ VectorOut2:
 putVecLoop2:
         mov [tmp], rbx
         cmp rcx, [vec2_size]
+
+        cmp rcx, 0
+        je putVecLoop2Fail
+
         je endOutputVector2
         mov [i], rcx
 
@@ -186,6 +194,12 @@ putVecLoop2:
         mov rbx, [tmp]
         add rbx, 8
         jmp putVecLoop2
+
+putVecLoop2Fail:
+		mov rdi, strEmptyArr
+		xor rax, rax
+		call printf
+
 endOutputVector2:
         ret
 ;==============================================================================
@@ -194,11 +208,11 @@ section '.data' writable
         strPleaseFill db 'Set all elements:', 10, 0
         strFirstArr  db 'First Array:', 10, 0
         strSecondArr db 'Second Array:', 10, 0
+        strEmptyArr  db 'Array is empty', 10, 0
         strVecSize   db 'size of vector? ', 0
         strIncorSize db 'Incorrect size of vector', 10, 0
         strVecElemI  db '[%d]? ', 0
         strScanInt   db '%d', 0
-        strScanLong  db '%ld', 0
         strSumValue  db 'Summa = %d', 10, 0
         strVecElemOut db '[%d] = %d', 10, 0
 
